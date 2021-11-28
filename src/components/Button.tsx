@@ -3,20 +3,15 @@ import {FilterType} from '../App';
 
 type propsType = {
     name: string
-    callBack: ()=>void
+    callBack: () => void
 }
 
 const Button = (props: propsType) => {
 
-const onClickHandler = () =>{
-    props.callBack()
+    const onClickHandler = () => {
+        props.callBack()
     }
-
-    return (
-        <div>
-            <button onClick={onClickHandler}>{props.name}</button>
-        </div>
-    );
-};
+    return (<button onClick={onClickHandler}>{props.name}</button>)
+}
 
 export default Button;

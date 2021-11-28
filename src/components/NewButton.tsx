@@ -1,11 +1,11 @@
 import React from 'react';
 
 type propsType = {
-    name:string
+    name: string
     callBack: () => void
 }
 
-const NewButton = ({name,callBack, ...props}: propsType) => {
+const NewButton = ({name, callBack, ...props}: propsType) => {
     const onClickHandler = () => {
         callBack()
     }
@@ -14,7 +14,7 @@ const NewButton = ({name,callBack, ...props}: propsType) => {
         <div>
             <button onClick={onClickHandler}>{name}</button>
         </div>
-    );
-};
+    )
+}
 
 export default NewButton;
