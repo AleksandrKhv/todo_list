@@ -45,7 +45,7 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist title={'What to learn1='}
+            <Todolist title={'Допы от Игоря, практика'}
                       tasks={newTask}
                       removeTask={removeTask}
                       setFilter={setFilter}
