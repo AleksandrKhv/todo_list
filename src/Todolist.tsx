@@ -1,94 +1,53 @@
-import React, {ChangeEvent, useState} from 'react';
-import {FilterValuesType} from './App';
+import React, {useState} from 'react';
+import {FilterType} from './App';
+import Button from './components/Button';
+import FullInput from './components/Input';
 
-type TaskType = {
+
+type TItem = {
+    title: string
+    tasks: Array<TTasks>
+    removeTask: (mId: string) => void
+    setFilter: (value: FilterType) => void
+    addTask: (title: string) => void
+}
+
+type TTasks = {
     id: string
     title: string
     isDone: boolean
 }
 
-export type PropsType = {
-    tasksForTodolist: Array<TaskType>;
-    title: string
-    tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (title: string) => void
-}
 
+export const Todolist = (props: TItem) => {
 
-export function Todolist(props: PropsType) {
+        const onClickHandler = (mId: string) => {
+            props.removeTask(mId)
+        }
 
-    let [filter, setFilter] = useState<FilterValuesType>("all");
+        const setFilterClickHandler = (value: FilterType) => {
+            props.setFilter(value)
+        }
 
-    let tasksForTodolist = props.tasks;
-
-    if (filter === "active") {
-        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+        return (
+            <div>
+                <h3>{props.title}</h3>
+                <div>
+                    <FullInput addTask={props.addTask}/>
+                </div>
+                <ul>
+                    {props.tasks.map(m => <li key={m.id}>
+                        <input type="checkbox" checked={m.isDone}/>
+                        <span> {m.title}</span>
+                        <Button name={'xx'} callBack={() => onClickHandler(m.id)}/>
+                    </li>)}
+                </ul>
+                <div>
+                    <Button name={'All'} callBack={() => setFilterClickHandler('All')}/>
+                    <Button name={'Active'} callBack={() => setFilterClickHandler('Active')}/>
+                    <Button name={'Completed'} callBack={() => setFilterClickHandler('Completed')}/>
+                </div>
+            </div>
+        );
     }
-    if (filter === "completed") {
-        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
-    }
-
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
-    }
-
-    const [title, setTitle] = useState('')
-
-    const onPressKeyHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter')
-            keyAddHandler()
-    }
-
-    const keyAddHandler = () => {
-        props.addTask(title)
-        setTitle('')
-    }
-
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
-    }
-
-    /*const cActiveAllHandler = () => {
-        props.changeFilter("all")
-    }
-    const cActiveActiveHandler = () => {
-        props.changeFilter("active")
-    }
-    const cActiveCompletedHandler = () => {
-        props.changeFilter("completed")
-    }
-*/
-    const kingOfAllChaingHandler = (value: FilterValuesType) => {
-        props.changeFilter(value)
-    }
-
-    const allRemoveTaskHandler = (id: string) => {
-        props.removeTask(id)
-    }
-
-    return <div>
-        <h3>{props.title}</h3>
-        <div>
-            {/*<input onChange={(event)=> setTitle(event.currentTarget.value )}/>*/}
-            <input value={title} onChange={onChangeHandler} onKeyPress={onPressKeyHandler}/>
-            <button onClick={keyAddHandler}>+</button>
-        </div>
-        <ul>
-            {
-                props.tasks.map(t => <li key={t.id}>
-                    <input type="checkbox" checked={t.isDone}/>
-                    <span>{t.title}</span>
-                    <button onClick={() => allRemoveTaskHandler(t.id)}>x
-                    </button>
-                </li>)
-            }
-        </ul>
-        <div>
-            <button onClick={() => kingOfAllChaingHandler('all')}>All</button>
-            <button onClick={() => kingOfAllChaingHandler('active')}>Active</button>
-            <button onClick={() => kingOfAllChaingHandler('completed')}>Completed</button>
-        </div>
-    </div>
-}
+;
