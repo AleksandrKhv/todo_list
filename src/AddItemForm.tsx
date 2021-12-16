@@ -2,11 +2,11 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import styles from './Todolist.module.css';
 
 type propsType = {
-    addItem: (title:string) => void
+    addItem: (title: string) => void
 
 }
 
-const AddItemForm = (props: propsType ) => {
+const AddItemForm = (props: propsType) => {
 
     let [title, setTitle] = useState("")
     const [error, setError] = useState(false)
