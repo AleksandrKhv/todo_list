@@ -7,12 +7,14 @@
 }
 
 .activeFilter {
-    background-color: aquamarine;
+    background-color: aqua;
 }
 
 .isDone {
     opacity: 0.5;
 }
 
-
+.Button {
+    color: aqua;
+}
 
