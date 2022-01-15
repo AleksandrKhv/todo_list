@@ -24,17 +24,19 @@ const EditableSpan = (props: propsType) => {
 
     return (
         editMode
-            ?<TextField value={title}
-                        size={'small'}
-                        onChange={onChangeHandler}
-                        autoFocus={true}
-                        onBlur={offEditMode}
+            ? <TextField value={title}
+                         size={'small'}
+                         onChange={onChangeHandler}
+                         autoFocus={true}
+                         onBlur={offEditMode}
+                         variant={'outlined'}
+                         color={'secondary'}
             />
             /* <input value={title}
                      onChange={onChangeHandler}
                      autoFocus={true}
                      onBlur={offEditMode}/>*/
-            : <span onDoubleClick={onEditMode} style={{cursor: 'pointer'}}>{props.title}</span>
+            : <span onClick={onEditMode} style={{cursor: 'pointer'}}>{props.title}</span>
     );
 };
 

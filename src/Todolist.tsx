@@ -1,9 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import styles from './Todolist.module.css'
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
-import {Button, ButtonGroup, Checkbox, IconButton} from '@material-ui/core';
+import {Button, ButtonGroup, Checkbox, IconButton, Typography} from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
 
 export type TaskType = {
@@ -44,14 +44,15 @@ export function Todolist({filter, ...props}: PropsType) {
     }
 
     return <div>
-        <h3>
-            <EditableSpan title={props.title} changeTitle={changeTodoListTitle} />
+        <Typography variant={'h6'} align={'center'} color={'primary'} paragraph>
+            <EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
             {/*{props.title}*/}
             {/*<button onClick={removeTodoListHandler}>remove List</button>*/}
             <IconButton onClick={removeTodoListHandler} size={'small'}>
                 <Delete fontSize={'small'}/>
             </IconButton>
-        </h3>
+        </Typography>
+
         <AddItemForm addItem={addTask}/>
 
         <div>
@@ -65,6 +66,9 @@ export function Todolist({filter, ...props}: PropsType) {
                         props.changeTaskTitle(t.id, newTitle, props.todoListId)
                     }
                     return <div key={t.id} className={t.isDone ? styles.isDone : ''}>
+                        <IconButton onClick={onClickHandler} size={'small'}>
+                            <Delete fontSize={'small'}/>
+                        </IconButton>
                         <Checkbox defaultChecked
                                   size={'small'}
                                   color="primary"
@@ -76,17 +80,15 @@ export function Todolist({filter, ...props}: PropsType) {
                         <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
                         {/*<span>{t.title}</span>*/}
                         {/*<button onClick={onClickHandler}>x</button>*/}
-                        <IconButton onClick={onClickHandler} size={'small'}>
-                            <Delete fontSize={'small'}/>
-                        </IconButton>
                     </div>
                 })
             }
         </div>
 
         <div>
-            <ButtonGroup size={'small'} variant={'contained'} color={'primary'} disableElevation>
-                <Button color={filter === 'all' ? 'secondary' : 'primary'} onClick={onAllClickHandler}>All</Button>
+            <ButtonGroup size={'small'} variant={'contained'} color={'primary'} disableElevation fullWidth>
+                <Button color={filter === 'all' ? 'secondary' : 'primary'}
+                        onClick={onAllClickHandler}>All</Button>
                 <Button color={filter === 'active' ? 'secondary' : 'primary'}
                         onClick={onActiveClickHandler}>Active
                 </Button>
