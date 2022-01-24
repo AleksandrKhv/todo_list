@@ -6,7 +6,7 @@ type propsType = {
     changeTitle: (newTitle: string) => void
 }
 
-const EditableSpan = (props: propsType) => {
+const EditableSpan = React.memo((props: propsType) => {
     let [title, setTitle] = useState(props.title)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -38,6 +38,6 @@ const EditableSpan = (props: propsType) => {
                      onBlur={offEditMode}/>*/
             : <span onClick={onEditMode} style={{cursor: 'pointer'}}>{props.title}</span>
     );
-};
+})
 
 export default EditableSpan;

@@ -1,18 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import styles from './Todolist.module.css';
 import {Button, IconButton, TextField} from '@material-ui/core';
 import {AddBox} from '@material-ui/icons';
 
 
 type propsType = {
     addItem: (title: string) => void
-
 }
 
-const AddItemForm = (props: propsType) => {
+const AddItemForm = React.memo( (props: propsType) => {
 
     let [title, setTitle] = useState("")
-    const [error, setError] = useState<boolean|string>(false)
+    const [error, setError] = useState<string | boolean>(false)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -31,7 +29,7 @@ const AddItemForm = (props: propsType) => {
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             addItem();
-            setError(false)
+            error && setError(false)
         }
     }
 
@@ -61,6 +59,6 @@ const AddItemForm = (props: propsType) => {
             {/*{error && <div className={styles.errorMessage}>Title is required</div>}*/}
         </div>
     );
-};
+});
 
 export default AddItemForm;
