@@ -14,7 +14,6 @@ export type PropsType = {
 }
 
 const Task = React.memo(({todoListId, task, removeTask, changeStatus, changeTaskTitle}: PropsType) => {
-    console.log('taski')
     const onClickHandler = useCallback(() => removeTask(task.id, todoListId), [task.id, removeTask, todoListId])
     const onChangeHandlerForChangeStatus = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         changeStatus(task.id, event.currentTarget.checked, todoListId)
